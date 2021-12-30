@@ -49,3 +49,4 @@ It must contained some embedded R code that gets run when slidifying the documen
 
 Shiny app location: https://rennerpmr.shinyapps.io/DDPFinal2/
 
+Presentation location: https://rpubs.com/PhilRenner/851852
