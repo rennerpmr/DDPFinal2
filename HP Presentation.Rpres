@@ -15,7 +15,7 @@ head(mtcars)
 
 Predicting MPG
 ========================================================
-We buil two models to predict MPG from horsepower, and used a slider to select horsepower and check boxes to select which models to display, as shown below.
+We buil two models to predict MPG from horsepower, and used a slider to select horsepower and check boxes to select which models to display, as shown below. 
 
 ```{r MPGplot, echo=FALSE}
  mtcars$hpsp <- ifelse(mtcars$hp - 145 > 0, mtcars$hp - 145, 0)

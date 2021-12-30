@@ -26,7 +26,7 @@ Valiant           18.1   6  225 105 2.76 3.460 20.22  1  0    3    1
 
 Predicting MPG
 ========================================================
-We buil two models to predict MPG from horsepower, and used a slider to select horsepower and check boxes to select which models to display, as shown below.
+We buil two models to predict MPG from horsepower, and used a slider to select horsepower and check boxes to select which models to display, as shown below. 
 
 ![plot of chunk MPGplot](HP Presentation-figure/MPGplot-1.png)
 
