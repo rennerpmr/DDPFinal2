@@ -1,0 +1,59 @@
+Developing Data Products: Using MPG to Predict Horsepower
+========================================================
+author: Phil Renner
+date: 12/29/2021
+autosize: true
+
+Background
+========================================================
+
+For the final Project in Developing Data Products, I created a Shiny app to predict the miles per gallon of a car, given horsepower. The app uses the Motor Trend cars data in the mtcars dataset
+
+```{r data, echo=TRUE}
+head(mtcars)
+```
+
+Predicting MPG
+========================================================
+We buil two models to predict MPG from horsepower, and used a slider to select horsepower and check boxes to select which models to display, as shown below.
+
+```{r MPGplot, echo=FALSE}
+ mtcars$hpsp <- ifelse(mtcars$hp - 145 > 0, mtcars$hp - 145, 0)
+    model1 <- lm(mpg ~ hp, data = mtcars)
+    model2 <- lm(mpg ~ hpsp + hp, data = mtcars)
+   hpInput <- 150
+   
+      model1pred <- predict(model1, newdata = data.frame(hp = hpInput))
+      model2pred <- predict(model2, newdata = 
+                    data.frame(hp = hpInput,
+                               hpsp = ifelse(hpInput - 145 > 0,
+                                              hpInput - 145, 0)))
+   
+    
+#    output$plot1 <- 
+            plot(mtcars$hp, mtcars$mpg, xlab = "Horsepower", 
+             ylab = "Miles Per Gallon", bty = "n", pch = 16,
+             xlim = c(50, 350), ylim = c(10, 35))
+        
+            abline(model1, col = "red", lwd = 2)
+            points(hpInput, model1pred, col = "red", pch = 16, cex = 2)
+        
+            model2lines <- predict(model2, newdata = data.frame(
+                hp = 50:350, hpsp = ifelse(50:350 - 145 > 0, 50:350 - 145, 0)))
+            
+            lines(50:350, model2lines, col = "blue", lwd = 2)
+            points(hpInput, model2pred, col = "blue", pch = 16, cex = 2)
+        
+        legend("topright", c("Model 1 Prediction", "Model 2 Prediction"), pch = 16, 
+               col = c("red", "blue"), bty = "n", cex = 1.2)
+
+            
+    
+```
+
+For More Information
+========================================================
+
+Shiny App:  https://rennerpmr.shinyapps.io/DDPFinal2/
+
+Github: https://github.com/rennerpmr/DDPFinal2
