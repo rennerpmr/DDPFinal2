@@ -7,7 +7,7 @@ autosize: true
 Background
 ========================================================
 
-For the final Project in Developing Data Products, I created a Shiny app to predict the miles per gallon of a car, given horsepower. The app uses the Motor Trend cars data in the mtcars dataset
+For the final Project in Developing Data Products, I created a Shiny app to predict the miles per gallon of a car, given horsepower. The app uses the Motor Trend cars data in the mtcars dataset.
 
 
 ```r
