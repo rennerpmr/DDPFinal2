@@ -760,7 +760,9 @@ hljs.initHighlightingOnLoad();
 <section data-transition="linear" data-transition-speed="default">
 <h3>Background</h3>
 <div class="slideContent" >
-<p>For the final Project in Developing Data Products, I created a Shiny app to predict the miles per gallon of a car, given horsepower. The app uses the Motor Trend cars data in the mtcars dataset</p>
+<p>Sometimes, when we are designing a car we know the horsepower of the engine and need to know what the miles per gallon are likely to be. To help with that task, I designed a Shiny app to use the horsepower to predict MPG.</p>
+
+<p>The app uses the Motor Trend cars data in the mtcars dataset.</p>
 
 <pre><code class="r">head(mtcars)
 </code></pre>
@@ -780,7 +782,37 @@ Valiant           18.1   6  225 105 2.76 3.460 20.22  1  0    3    1
 <section data-transition="linear" data-transition-speed="default">
 <h3>Predicting MPG</h3>
 <div class="mediaInline slideContent" >
-<p>We buil two models to predict MPG from horsepower, and used a slider to select horsepower and check boxes to select which models to display, as shown below.</p>
+<p>We built two models to predict MPG from horsepower, and used a slider to select horsepower and check boxes to select which models to display, as shown below. </p>
+
+<pre><code class="r"> mtcars$hpsp &lt;- ifelse(mtcars$hp - 145 &gt; 0, mtcars$hp - 145, 0)
+    model1 &lt;- lm(mpg ~ hp, data = mtcars)
+    model2 &lt;- lm(mpg ~ hpsp + hp, data = mtcars)
+   hpInput &lt;- 150
+
+      model1pred &lt;- predict(model1, newdata = data.frame(hp = hpInput))
+      model2pred &lt;- predict(model2, newdata = 
+                    data.frame(hp = hpInput,
+                               hpsp = ifelse(hpInput - 145 &gt; 0,
+                                              hpInput - 145, 0)))
+
+
+#    output$plot1 &lt;- 
+            plot(mtcars$hp, mtcars$mpg, xlab = &quot;Horsepower&quot;, 
+             ylab = &quot;Miles Per Gallon&quot;, bty = &quot;n&quot;, pch = 16,
+             xlim = c(50, 350), ylim = c(10, 35))
+
+            abline(model1, col = &quot;red&quot;, lwd = 2)
+            points(hpInput, model1pred, col = &quot;red&quot;, pch = 16, cex = 2)
+
+            model2lines &lt;- predict(model2, newdata = data.frame(
+                hp = 50:350, hpsp = ifelse(50:350 - 145 &gt; 0, 50:350 - 145, 0)))
+
+            lines(50:350, model2lines, col = &quot;blue&quot;, lwd = 2)
+            points(hpInput, model2pred, col = &quot;blue&quot;, pch = 16, cex = 2)
+
+        legend(&quot;topright&quot;, c(&quot;Model 1 Prediction&quot;, &quot;Model 2 Prediction&quot;), pch = 16, 
+               col = c(&quot;red&quot;, &quot;blue&quot;), bty = &quot;n&quot;, cex = 1.2)
+</code></pre>
 
 <p><img src="data:image/png;base64,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" alt="plot of chunk MPGplot"/></p>
 
